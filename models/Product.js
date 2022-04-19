@@ -12,33 +12,25 @@ const ProductSchema = new mongoose.Schema(
       required: true,
       maxlength: 200,
     },
-    image: {
+    img: {
       type: String,
       required: true,
     },
     prices: {
-      //*We write number in an array , to make it confirm its type will not change
       type: [Number],
       required: true,
     },
     extraOptions: {
       type: [
         {
-          text: {
-            type: String,
-            required: true,
-          },
-          price: {
-            type: Number,
-            required: True,
-          },
+          text: { type: String, required: true },
+          price: { type: Number, required: true },
         },
       ],
     },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
-export default mongoose.model("Product", ProductSchema);
+export default mongoose.models.Product ||
+  mongoose.model("Product", ProductSchema);
