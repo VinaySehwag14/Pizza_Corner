@@ -2,13 +2,15 @@ import styles from "./product.module.css";
 import Image from "next/image";
 import { useState } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../../redux/cartSlice";
 
 const Product = ({ pizza }) => {
   const [price, setPrice] = useState(pizza.prices[0]);
   const [size, setSize] = useState(0);
   const [quantity, setQuantity] = useState(1);
-  //* for getting extra ingredients info
   const [extras, setExtras] = useState([]);
+  const dispatch = useDispatch();
 
   const changePrice = (number) => {
     setPrice(price + number);
@@ -19,8 +21,6 @@ const Product = ({ pizza }) => {
     setSize(sizeIndex);
     changePrice(difference);
   };
-
-  //*onClick handler for increasing price on addONs
 
   const handleChange = (e, option) => {
     const checked = e.target.checked;
@@ -34,13 +34,18 @@ const Product = ({ pizza }) => {
     }
   };
 
+  const handleClick = () => {
+    dispatch(addProduct({ ...pizza, extras, price, quantity }));
+  };
+
+  console.log(quantity, "this is quantity");
+
   return (
     <div className={styles.container}>
       <div className={styles.left}>
         <div className={styles.imgContainer}>
-          <Image src={pizza.image} layout="fill" alt="pizza image" />
+          <Image src={pizza.image} objectFit="contain" layout="fill" alt="" />
         </div>
-        e
       </div>
       <div className={styles.right}>
         <h1 className={styles.title}>{pizza.title}</h1>
@@ -49,15 +54,15 @@ const Product = ({ pizza }) => {
         <h3 className={styles.choose}>Choose the size</h3>
         <div className={styles.sizes}>
           <div className={styles.size} onClick={() => handleSize(0)}>
-            <Image src="/image/size.png" layout="fill" alt="pizzasizes" />
+            <Image src="/image/size.png" layout="fill" alt="" />
             <span className={styles.number}>Small</span>
           </div>
           <div className={styles.size} onClick={() => handleSize(1)}>
-            <Image src="/image/size.png" layout="fill" alt="pizzasizes" />
+            <Image src="/image/size.png" layout="fill" alt="" />
             <span className={styles.number}>Medium</span>
           </div>
           <div className={styles.size} onClick={() => handleSize(2)}>
-            <Image src="/image/size.png" layout="fill" alt="pizzasizes" />
+            <Image src="/image/size.png" layout="fill" alt="" />
             <span className={styles.number}>Large</span>
           </div>
         </div>
@@ -83,16 +88,14 @@ const Product = ({ pizza }) => {
             defaultValue={1}
             className={styles.quantity}
           />
-          <button className={styles.button}>Add to Cart</button>
+          <button className={styles.button} onClick={handleClick}>
+            Add to Cart
+          </button>
         </div>
       </div>
     </div>
   );
 };
-
-export default Product;
-
-//*server side rendering
 
 export const getServerSideProps = async ({ params }) => {
   const res = await axios.get(
@@ -104,3 +107,5 @@ export const getServerSideProps = async ({ params }) => {
     },
   };
 };
+
+export default Product;
