@@ -1,12 +1,43 @@
 import axios from "axios";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "./admin.module.css";
 
 const Admin = ({ orders, products }) => {
-  useEffect(() => {
-    console.log(products, "its product");
-  }, [products]);
+  const [pizzaList, setPizzaList] = useState(products);
+  const [orderList, setOrderList] = useState(orders);
+  const status = ["preparing", "on the way", "delivered"];
+
+  const handleClick = async (id) => {
+    console.log(id, "id on click admin page");
+    try {
+      const res = await axios.delete(
+        "http://localhost:3000/api/products/" + id
+      );
+      setPizzaList(pizzaList.filter((pizza) => pizza._id !== id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  //* for changing order status
+
+  const handleStatus = async (id) => {
+    const item = orderList.filter((order) => order._id === id)[0];
+    const currentStatus = item.status;
+
+    try {
+      const res = await axios.put("http://localhost:3000/api/orders/" + id, {
+        status: currentStatus + 1,
+      });
+      setOrderList([
+        res.data,
+        ...orderList.filter((order) => order._id !== id),
+      ]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -22,7 +53,7 @@ const Admin = ({ orders, products }) => {
               <th>Action</th>
             </tr>
           </tbody>
-          {products.map((product) => (
+          {pizzaList.map((product) => (
             <tbody key={product._id}>
               <tr className={styles.trTitle}>
                 <td>
@@ -40,7 +71,12 @@ const Admin = ({ orders, products }) => {
                 <td>{product.prices[0]}</td>
                 <td>
                   <button className={styles.button}>Edit</button>
-                  <button className={styles.button}>Delete</button>
+                  <button
+                    className={styles.button}
+                    onClick={() => handleClick(product._id)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -60,18 +96,24 @@ const Admin = ({ orders, products }) => {
               <th>Action</th>
             </tr>
           </tbody>
-          <tbody>
-            <tr className={styles.trTitle}>
-              <td>{"484941941".slice(0, 5)}...</td>
-              <td>john Doe</td>
-              <td>$56</td>
-              <td>paid</td>
-              <td>preparing</td>
-              <td>
-                <button>Next Status</button>
-              </td>
-            </tr>
-          </tbody>
+          {orderList.map((order) => (
+            <tbody key={order._id}>
+              <tr className={styles.trTitle}>
+                <td>{order._id.slice(0, 5)}...</td>
+                <td>{order.customer}</td>
+                <td>${order.total}</td>
+                <td>
+                  {order.method === 0 ? <span>cash</span> : <span>paid</span>}
+                </td>
+                <td>{status[order.status]}</td>
+                <td>
+                  <button onClick={() => handleStatus(order._id)}>
+                    Next Status
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          ))}
         </table>
       </div>
     </div>
