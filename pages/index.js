@@ -5,6 +5,7 @@ import PizzaList from "../components/PizzaList/PizzaList";
 import styles from "../styles/Home.module.css";
 
 export default function Home({ pizzaList }) {
+  // if (!pizzaList) {
   return (
     <div className={styles.container}>
       <Head>
@@ -16,13 +17,16 @@ export default function Home({ pizzaList }) {
       <PizzaList pizzaList={pizzaList} />
     </div>
   );
+  // } else {
+  //   <div>Page is loaddingg.... ! PLease refresh</div>;
+  // }
 }
 
-export const getServerSideProps = async () => {
+export async function getServerSideProps() {
   const res = await axios.get("http://localhost:3000/api/products");
   return {
     props: {
       pizzaList: res.data,
     },
   };
-};
+}
