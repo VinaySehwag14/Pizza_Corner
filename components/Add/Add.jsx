@@ -31,17 +31,17 @@ const Add = ({ setClose }) => {
     data.append("upload_preset", "uploads");
     try {
       const uploadRes = await axios.post(
-        "https://api.cloudinary.com/v1_1/dsbyq4sj1/image/upload",
+        "https://api.cloudinary.com/v1_1/malang08/image/upload",
         data
       );
-
+      console.log(uploadRes.data);
       const { url } = uploadRes.data;
       const newProduct = {
         title,
         desc,
         prices,
         extraOptions,
-        img: url,
+        image: url,
       };
 
       await axios.post("http://localhost:3000/api/products", newProduct);
