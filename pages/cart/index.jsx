@@ -52,7 +52,7 @@ const Cart = () => {
           currency: currency,
         },
       });
-    }, [currency, showSpinner]);
+    }, [currency]);
 
     return (
       <>

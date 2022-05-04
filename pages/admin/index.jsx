@@ -1,7 +1,7 @@
 import axios from "axios";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import styles from "./admin.module.css";
+import { useState } from "react";
+import styles from "./Admin.module.css";
 
 const Admin = ({ orders, products }) => {
   const [pizzaList, setPizzaList] = useState(products);
