@@ -33,3 +33,15 @@
         height: 50vh;
     }
 }
+
+@media screen and (min-width:768px) {
+    .container{
+        height: 50vh;
+    }
+}
+
+@media screen and (max-width:550px) and (min-width:540px){
+    .container{
+        height: 50vh;
+    }
+}

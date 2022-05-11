@@ -92,3 +92,45 @@
         flex: 3;
     }
 }
+
+@media screen and (max-width:820px) and (min-width:540px) {
+    
+    .logoImg{
+        display: none;
+    }
+  
+    .listItem:nth-child(6){
+        display: none;
+    }
+    
+    .container{
+        padding:0px 2em;
+    }   
+    
+}
+
+@media screen and (max-width:550px) and (min-width:540px){
+
+    .listItem:nth-child(7){
+        display: none;
+    }
+    .listItem:nth-child(6){
+        display: none;
+    }
+    .listItem:nth-child(5){
+        display: none;
+    }
+    .listItem:nth-child(4){
+        display: none;
+    }
+    .listItem:nth-child(3){
+        display: none;
+    }
+
+    .logoImg{
+        display: none;
+    }
+    .container{
+        padding:0px 1.5em;
+    }   
+}

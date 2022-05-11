@@ -32,7 +32,14 @@ const Navbar = () => {
           </Link>
           <li className={style.listItem}>Products</li>
           <li className={style.listItem}>Menu</li>
-          <Image src="/image/logo.png" alt="logo" width="200px" height="69px" />
+          <div className={style.logoImg}>
+            <Image
+              src="/image/logo.png"
+              alt="logo"
+              width="200px"
+              height="69px"
+            />
+          </div>
           <li className={style.listItem}>Events</li>
           <li className={style.listItem}>Blog</li>
           <li className={style.listItem}>Contact</li>
