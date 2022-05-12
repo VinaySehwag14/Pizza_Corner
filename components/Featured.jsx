@@ -34,7 +34,13 @@ const Featured = () => {
       >
         {images.map((image, i) => (
           <div className={styles.imgContainer} key={i}>
-            <Image src={image} alt="" layout="fill" objectFit="contain" />
+            <Image
+              src={image}
+              alt=""
+              layout="fill"
+              objectFit="contain"
+              priority
+            />
           </div>
         ))}
       </div>
