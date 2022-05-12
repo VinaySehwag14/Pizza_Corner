@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "../styles/Add.module.css";
 import axios from "axios";
 import { useRouter } from "next/router";
+import API from "../backendApi";
 
 const Add = ({ setClose }) => {
   const [file, setFile] = useState(null);

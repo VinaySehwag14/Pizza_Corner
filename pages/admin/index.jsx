@@ -1,6 +1,7 @@
 import axios from "axios";
 import Image from "next/image";
 import { useState } from "react";
+import API from "../../backendApi";
 import styles from "../../styles/Admin.module.css";
 
 const Index = ({ orders, products }) => {
