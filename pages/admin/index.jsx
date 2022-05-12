@@ -56,7 +56,7 @@ const Index = ({ orders, products }) => {
               <tr className={styles.trTitle}>
                 <td>
                   <Image
-                    src={product.img}
+                    src={product.image}
                     width={50}
                     height={50}
                     objectFit="cover"
