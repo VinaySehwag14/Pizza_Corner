@@ -2,6 +2,7 @@ import axios from "axios";
 import Head from "next/head";
 import Image from "next/image";
 import { useState } from "react";
+import API from "../backendApi";
 import Add from "../components/Add";
 import AddButton from "../components/AddButton";
 import Featured from "../components/Featured";
@@ -33,9 +34,7 @@ export const getServerSideProps = async (ctx) => {
     admin = true;
   }
 
-  const res = await axios.get(
-    "https://pizza-corner-vinaysehwag14.vercel.app/api/products"
-  );
+  const res = await axios.get(`${API}/products`);
   // http://localhost:3000/api
   return {
     props: {
