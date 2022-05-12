@@ -1,15 +1,15 @@
 import axios from "axios";
 import Image from "next/image";
 import { useState } from "react";
-import styles from "./Admin.module.css";
+import styles from "../../styles/Admin.module.css";
 
-const Admin = ({ orders, products }) => {
+const Index = ({ orders, products }) => {
   const [pizzaList, setPizzaList] = useState(products);
   const [orderList, setOrderList] = useState(orders);
   const status = ["preparing", "on the way", "delivered"];
 
-  const handleClick = async (id) => {
-    console.log(id, "id on click admin page");
+  const handleDelete = async (id) => {
+    console.log(id);
     try {
       const res = await axios.delete(
         "http://localhost:3000/api/products/" + id
@@ -19,8 +19,6 @@ const Admin = ({ orders, products }) => {
       console.log(err);
     }
   };
-
-  //* for changing order status
 
   const handleStatus = async (id) => {
     const item = orderList.filter((order) => order._id === id)[0];
@@ -58,22 +56,21 @@ const Admin = ({ orders, products }) => {
               <tr className={styles.trTitle}>
                 <td>
                   <Image
-                    src={product.image}
+                    src={product.img}
                     width={50}
                     height={50}
                     objectFit="cover"
                     alt=""
                   />
-                  PizzaTitle
                 </td>
                 <td>{product._id.slice(0, 5)}...</td>
                 <td>{product.title}</td>
-                <td>{product.prices[0]}</td>
+                <td>${product.prices[0]}</td>
                 <td>
                   <button className={styles.button}>Edit</button>
                   <button
                     className={styles.button}
-                    onClick={() => handleClick(product._id)}
+                    onClick={() => handleDelete(product._id)}
                   >
                     Delete
                   </button>
@@ -108,7 +105,7 @@ const Admin = ({ orders, products }) => {
                 <td>{status[order.status]}</td>
                 <td>
                   <button onClick={() => handleStatus(order._id)}>
-                    Next Status
+                    Next Stage
                   </button>
                 </td>
               </tr>
@@ -120,10 +117,9 @@ const Admin = ({ orders, products }) => {
   );
 };
 
-export async function getServerSideProps(ctx) {
+export const getServerSideProps = async (ctx) => {
   const myCookie = ctx.req?.cookies || "";
 
-  //*redirecting if token does not match
   if (myCookie.token !== process.env.TOKEN) {
     return {
       redirect: {
@@ -134,7 +130,6 @@ export async function getServerSideProps(ctx) {
   }
 
   const productRes = await axios.get("http://localhost:3000/api/products");
-
   const orderRes = await axios.get("http://localhost:3000/api/orders");
 
   return {
@@ -143,6 +138,6 @@ export async function getServerSideProps(ctx) {
       products: productRes.data,
     },
   };
-}
+};
 
-export default Admin;
+export default Index;

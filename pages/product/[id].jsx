@@ -1,4 +1,4 @@
-import styles from "./product.module.css";
+import styles from "../../styles/Product.module.css";
 import Image from "next/image";
 import { useState } from "react";
 import axios from "axios";
@@ -35,16 +35,14 @@ const Product = ({ pizza }) => {
   };
 
   const handleClick = () => {
-    dispatch(addProduct({ ...pizza, extras, price, quantity }));
+    dispatch(addProduct({...pizza, extras, price, quantity}));
   };
-
-  console.log(quantity, "this is quantity");
 
   return (
     <div className={styles.container}>
       <div className={styles.left}>
         <div className={styles.imgContainer}>
-          <Image src={pizza.image} objectFit="contain" layout="fill" alt="" />
+          <Image src={pizza.img} objectFit="contain" layout="fill" alt="" />
         </div>
       </div>
       <div className={styles.right}>
@@ -54,15 +52,15 @@ const Product = ({ pizza }) => {
         <h3 className={styles.choose}>Choose the size</h3>
         <div className={styles.sizes}>
           <div className={styles.size} onClick={() => handleSize(0)}>
-            <Image src="/image/size.png" layout="fill" alt="" />
+            <Image src="/img/size.png" layout="fill" alt="" />
             <span className={styles.number}>Small</span>
           </div>
           <div className={styles.size} onClick={() => handleSize(1)}>
-            <Image src="/image/size.png" layout="fill" alt="" />
+            <Image src="/img/size.png" layout="fill" alt="" />
             <span className={styles.number}>Medium</span>
           </div>
           <div className={styles.size} onClick={() => handleSize(2)}>
-            <Image src="/image/size.png" layout="fill" alt="" />
+            <Image src="/img/size.png" layout="fill" alt="" />
             <span className={styles.number}>Large</span>
           </div>
         </div>

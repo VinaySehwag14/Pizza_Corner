@@ -6,7 +6,6 @@ const handler = async (req, res) => {
 
   await dbConnect();
 
-  //* for displaying all order
   if (method === "GET") {
     try {
       const orders = await Order.find();
@@ -15,8 +14,6 @@ const handler = async (req, res) => {
       res.status(500).json(err);
     }
   }
-
-  //* for creating a order
   if (method === "POST") {
     try {
       const order = await Order.create(req.body);

@@ -17,7 +17,6 @@ const handler = async (req, res) => {
       res.status(500).json(err);
     }
   }
-
   if (method === "PUT") {
     try {
       const order = await Order.findByIdAndUpdate(id, req.body, {
