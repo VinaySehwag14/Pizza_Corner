@@ -8,6 +8,6 @@ module.exports = {
     ADMIN_USERNAME: "admin",
     ADMIN_PASSWORD: "123456",
     TOKEN: "SWdw4CV||34259099uif0ij&*&@&.;/",
-    API: "http://localhost:3000/api",
+    API: "https://pizza-corner.vercel.app/api",
   },
 };
