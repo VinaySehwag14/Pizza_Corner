@@ -2,7 +2,6 @@ import { useState } from "react";
 import styles from "../styles/Add.module.css";
 import axios from "axios";
 import { useRouter } from "next/router";
-import API from "../backendApi";
 
 const Add = ({ setClose }) => {
   const [file, setFile] = useState(null);
@@ -45,7 +44,7 @@ const Add = ({ setClose }) => {
         image: url,
       };
 
-      await axios.post(`http://localhost:3000/api/products`, newProduct);
+      await axios.post(`${process.env.API}/products`, newProduct);
       setClose(true);
     } catch (err) {
       console.log(err);
