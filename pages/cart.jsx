@@ -25,7 +25,7 @@ const Cart = () => {
 
   const createOrder = async (data) => {
     try {
-      const res = await axios.post(`${API}/orders`, data);
+      const res = await axios.post(`http://localhost:3000/api/orders`, data);
       if (res.status === 201) {
         dispatch(reset());
         router.push(`/orders/${res.data._id}`);
@@ -112,7 +112,7 @@ const Cart = () => {
                 <td>
                   <div className={styles.imgContainer}>
                     <Image
-                      src={product.img}
+                      src={product.image}
                       layout="fill"
                       objectFit="cover"
                       alt=""
